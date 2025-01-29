@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getDegree, getSpecilization, onRegister } from "../services/faculty";
+import { getCourse, onRegister } from "../services/student";
 import '../styles/register.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Register() {
+function RegisterStudent() {
+    
     const navigate = useNavigate();
 
     const [fName, setFirstName] = useState('');
@@ -14,17 +15,13 @@ function Register() {
     const [password, setPassword] = useState('');
     const [repPassword, setRepPassword] = useState('');
     const [mobNo, setPhone] = useState('');
-    const [degree, setDegree] = useState('')
-    const [specialization, setSpecialization] = useState('')
+    const [courseId, setCourseId] = useState('')
 
-    const [deg, setDeg] = useState([]);
-    const [spec, setSpec] = useState([]);
+    const [courses, setCourses] = useState([]);
 
     async function loadData() {
-        const d = await getDegree();
-        const s = await getSpecilization();
-        setDeg(d);
-        setSpec(s);
+        const c = await getCourse();
+        setCourses(c);
     }
 
     useEffect(() => {
@@ -41,7 +38,6 @@ function Register() {
             toast.error("Last name is required.");
             return;
         }
-    
         
         const phoneRegex = /^[0-9]{10}$/;
         if (!mobNo.trim()) {
@@ -51,14 +47,9 @@ function Register() {
             toast.error("Invalid phone number. Must be 10 digits.");
             return;
         }
-        
-        if (!degree) {
-            toast.error("Please select a degree.");
-            return;
-        }
-    
-        if (!specialization) {
-            toast.error("Please select a specialization.");
+
+        if (!courseId) {
+            toast.error("Please select a course.");
             return;
         }
 
@@ -83,9 +74,8 @@ function Register() {
             toast.error("Passwords do not match.");
             return;
         }
-    
             
-        const reqBody = { fname: fName, lname: lName, mobNo, email, password, degree, specilization: specialization };
+        const reqBody = { fname: fName, lname: lName, mobNo, selectedCourse : courseId , email, password };
 
         const res = await onRegister(reqBody);
         if(res.status == 1) {
@@ -101,10 +91,10 @@ function Register() {
     return (
         <div className="register-container">
             <div className="form-box">
-                <h2 className="header">Faculty Register</h2>
+                <h2 className="header">Student Register</h2>
                 <div className="row">
                     <div className="col">
-                        <Link to="/registerstudent" className="btn btn-primary ms-5">For Student Registration</Link>
+                        <Link to="/registerstudent" className="ms-5 btn btn-primary">For Student Registration</Link>
                     </div>
                     <div className="col">
                         <Link to="/register" className="ms-5 btn btn-primary">For Faculty Registration</Link>
@@ -144,27 +134,13 @@ function Register() {
                 </div>
 
                 <div className="row mb-3">
-                    <label htmlFor="degree">Degree</label>
-                    <select id="degree" className="form-select" value={degree}
-                    onChange={e=>setDegree(e.target.value)}>
-                        <option value="">Select Degree</option>
-                        {deg.map((opt, index) => (
-                            <option key={index} value={opt}>
-                                {opt}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className="row mb-3">
-                    <label htmlFor="specs">Specialization</label>
-                    <select id="specs" className="form-select" value={specialization} 
-                        onChange={e=>setSpecialization(e.target.value)}
-                    >
-                        <option value="">Select Specialization</option>
-                        {spec.map((opt, index) => (
-                            <option key={index} value={opt}>
-                                {opt}
+                    <label htmlFor="course">Course</label>
+                    <select id="course" className="form-select" value={courseId}
+                    onChange={e=>setCourseId(e.target.value)}>
+                        <option value="">Select Course</option>
+                        {courses.map((opt, index) => (
+                            <option key={index} value={opt.id}>
+                                {opt.courseName}
                             </option>
                         ))}
                     </select>
@@ -213,4 +189,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default RegisterStudent;

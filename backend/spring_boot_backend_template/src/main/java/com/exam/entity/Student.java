@@ -2,18 +2,18 @@ package com.exam.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "faculty")
+@Entity(name = "student")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Faculty extends BaseEntity {
-	
+public class Student extends BaseEntity {
+
 	@Column(name = "f_name", length = 20)
 	private String fName;
 	
@@ -29,11 +29,8 @@ public class Faculty extends BaseEntity {
 	@Column(name = "mob_no", length = 10)
 	private String mobNo;
 
-	@Enumerated(EnumType.STRING)
-	private Degree degree;
-	
-	@Enumerated(EnumType.STRING)
-	private Specilization specilization;
-	
+	@ManyToOne
+	@JoinColumn(name = "selected_course")
+	private Course selectedCourse;
 	
 }

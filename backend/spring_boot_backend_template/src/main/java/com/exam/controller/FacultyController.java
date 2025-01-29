@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exam.dto.ApiResponse;
 import com.exam.dto.ReqFaculty;
+import com.exam.dto.ReqStudentSignIn;
 import com.exam.entity.Degree;
 import com.exam.entity.Faculty;
 import com.exam.entity.Specilization;
+import com.exam.entity.Student;
 import com.exam.service.FacultyService;
 
-import jakarta.validation.Valid;
 
 
 @RestController
@@ -35,6 +36,15 @@ public class FacultyController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Faculty Inserted: "+ faculty.getId(), 1));
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Faculty not Inserted...!", 0));
+	}
+	
+	@PostMapping("/signin")
+	public ResponseEntity<?> getMethodName(@RequestBody ReqStudentSignIn entity) {
+		Faculty f = facultyService.selectFaculty(entity);
+		if(f != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("faculty logged in ", 1));
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("invalid credentials", 0));
 	}
 	
 	@GetMapping("/degrees")

@@ -1,19 +1,9 @@
 import axios from "axios";
 import { createUrl } from "../utils";
 
-export async function getDegree() {
+export async function getCourse() {
     try {
-        const url = createUrl('faculty/degrees')
-        const response = await axios.get(url)
-        return response.data
-    } catch (ex) {
-        return { status: 'error', error: ex }
-    }
-}
-
-export async function getSpecilization() {
-    try {
-        const url = createUrl('faculty/specs')
+        const url = createUrl('student/course')
         const response = await axios.get(url)
         return response.data
     } catch (ex) {
@@ -23,8 +13,7 @@ export async function getSpecilization() {
 
 export async function onRegister(reqBody) {
     try {
-        debugger
-        const url = createUrl('faculty')
+        const url = createUrl('student')
         const response = await axios.post(url, reqBody, {
             headers: {
               'Content-Type': 'application/json',
@@ -36,9 +25,9 @@ export async function onRegister(reqBody) {
     }
 }
 
-export async function loginFaculty(reqBody) {
+export async function loginStudent(reqBody) {
     try {
-        const url = createUrl('faculty/signin')
+        const url = createUrl('student/signin')
         const response = await axios.post(url, reqBody, {
             headers: {
               'Content-Type': 'application/json',
