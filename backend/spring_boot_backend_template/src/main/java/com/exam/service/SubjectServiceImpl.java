@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.exam.dao.SubjectDao;
 import com.exam.dto.ReqSubject;
+import com.exam.dto.ReqUpdateSubject;
 import com.exam.entity.Subject;
 
 import jakarta.transaction.Transactional;
@@ -30,15 +31,18 @@ public class SubjectServiceImpl implements SubjectService{
 		
 		Subject iSubject= subjectDao.save(subject);
 		iSubject.setActive(true);
+		
 		return iSubject;
 	}
 
 	@Override
-	public Subject updateSubject(ReqSubject reqSubject) {
+	public Subject updateSubject(ReqUpdateSubject reqUpdateSubject) {
 		// TODO Auto-generated method stub
-		Subject subject=modelMapper.map(reqSubject,Subject.class);
+//		Subject subject=modelMapper.map(reqUpdateSubject,Subject.class);
 		
-		Subject iSubject= subjectDao.save(subject);
+		Subject updateSubject=subjectDao.findById(reqUpdateSubject.getId()).get();
+		updateSubject.setTitle(reqUpdateSubject.getTitle());
+		Subject iSubject= subjectDao.save(updateSubject);
 		return iSubject;
 	}
 

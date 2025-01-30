@@ -4,6 +4,8 @@ import java.util.Set;
 
 import org.hibernate.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,14 +26,15 @@ public class Question extends BaseEntity {
 
 	@Column(length=500)
 	private String content;
-	private String image;
+//	private String image;
 	
 	private String option1;
 	private String option2;
 	private String option3;
 	private String option4;
+	private String answer;
 	
-	
+//	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Quiz quiz;
 }

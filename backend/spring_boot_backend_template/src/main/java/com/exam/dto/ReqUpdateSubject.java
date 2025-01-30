@@ -19,9 +19,9 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReqSubject {
+public class ReqUpdateSubject {
 	
-	
+	private Long id;
 	private String title;
 
 	

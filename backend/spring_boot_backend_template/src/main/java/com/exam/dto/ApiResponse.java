@@ -19,6 +19,10 @@ public class ApiResponse {
 		msg = m;
 		status = s;
 	}
+	public ApiResponse(String m) {
+		msg = m;
+		
+	}
 
 }
 

@@ -20,12 +20,14 @@ import lombok.ToString;
 public class ReqQuestion  {
 
 	private String content;
-	private String image;
+//	private String image;
 	
 	private String option1;
 	private String option2;
 	private String option3;
 	private String option4;
+	private String answer;
+	private Long quizId;
 	
 	
 	
