@@ -1,7 +1,11 @@
 package com.exam.entity;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -24,8 +28,9 @@ public class Subject extends BaseEntity{
 	private String title;
 	
 	private boolean isActive=false;
+	@JsonIgnore
 	@OneToMany(mappedBy = "subject",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	private Set<Quiz> quizess=new LinkedHashSet<>();
+	private List<Quiz> quizzes=new ArrayList<>();
 	
 	
 }

@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.exam.dto.ApiResponse;
 import com.exam.dto.ReqSubject;
+import com.exam.dto.ReqUpdateSubject;
 import com.exam.entity.Subject;
 import com.exam.service.SubjectService;
 
@@ -35,6 +37,16 @@ public class SubjectController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Subject not Inserted...!", 0));
 	}
+	
+	@PutMapping("/")
+	public ResponseEntity<?> updateSubject(@RequestBody ReqUpdateSubject entity) {
+		Subject subject = subjectService.updateSubject(entity);
+		if(subject != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Subject Inserted: "+ subject.getId(), 1));
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Subject not Inserted...!", 0));
+	}
+	
 	
 	@GetMapping("/{subjectId}")
 	public ResponseEntity<?> getSubject(@PathVariable("subjectId") Long subjectId) {
