@@ -1,5 +1,7 @@
 package com.exam.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,6 +26,7 @@ public class Faculty extends BaseEntity {
 	private String email;
 
 	@Column(nullable = false)
+	@JsonIgnore
 	private String password;
 	
 	@Column(name = "mob_no", length = 10)
@@ -35,5 +38,7 @@ public class Faculty extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Specilization specilization;
 	
+	@Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+	private boolean status = true;
 	
 }

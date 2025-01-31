@@ -1,5 +1,7 @@
 package com.exam.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import com.exam.dto.ReqSubject;
 import com.exam.dto.ReqUpdateSubject;
 import com.exam.entity.Subject;
 import com.exam.service.SubjectService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -28,6 +32,7 @@ public class SubjectController {
 	
 	@Autowired
 	private SubjectService subjectService;
+	
 	
 	@PostMapping("/")
 	public ResponseEntity<?> postMethodName(@RequestBody ReqSubject entity) {
@@ -78,5 +83,12 @@ public class SubjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Error While Deleting Subject...!", 0));
 		
 	}
+	
+	@GetMapping("/course/{courseId}")
+	public ResponseEntity<?> getMethodName(@PathVariable("courseId") Long courseId) {
+		List<Subject> listSubject = subjectService.findByCourseId(courseId);
+		return ResponseEntity.status(HttpStatus.OK).body(listSubject);
+	}
+	
 	
 }

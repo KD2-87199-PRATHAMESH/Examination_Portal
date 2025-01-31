@@ -37,13 +37,14 @@ function Login() {
         }
 
         if (role == 1) {
-
             const reqBody = { email, password };
 
             const res = await loginStudent(reqBody);
-            if (res.status == 1) {
+
+            if (res.status == true) {
+                sessionStorage.setItem("student", JSON.stringify(res));
                 toast.success("login successfull...!")
-                navigate("/register")
+                navigate("/home")
             }
             else {
                 toast.error("invalid credentials try again...!")
@@ -55,9 +56,10 @@ function Login() {
             const reqBody = { email, password };
 
             const res = await loginFaculty(reqBody);
-            if (res.status == 1) {
+            if (res.status == true) {
+                sessionStorage.setItem("faculty", JSON.stringify(res));
                 toast.success("login successfull...!")
-                navigate("/register")
+                navigate("/facultyhome")
             }
             else {
                 toast.error("invalid credentials try again...!")

@@ -1,18 +1,8 @@
  package com.exam.dto;
 
-import java.util.Set;
 
 import com.exam.entity.BaseEntity;
 
-import java.util.HashSet;
-import java.util.Locale.Category;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

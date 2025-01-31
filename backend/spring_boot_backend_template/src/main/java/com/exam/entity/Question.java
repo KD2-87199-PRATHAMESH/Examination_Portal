@@ -1,10 +1,5 @@
 package com.exam.entity;
 
-import java.util.Set;
-
-import org.hibernate.Length;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

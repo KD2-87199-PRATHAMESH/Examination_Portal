@@ -38,3 +38,17 @@ export async function loginStudent(reqBody) {
         return { status: 'error', error: ex }
     }
 }
+
+export async function updateStudent(reqBody) {
+    try {
+        const url = createUrl('student')
+        const response = await axios.put(url, reqBody, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+        });
+        return response.data
+    } catch (ex) {
+        return { status: 'error', error: ex }
+    }
+}

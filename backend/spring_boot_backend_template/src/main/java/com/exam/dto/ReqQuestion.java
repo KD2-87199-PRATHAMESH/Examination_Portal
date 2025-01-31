@@ -1,10 +1,5 @@
 package com.exam.dto;
 
-import java.util.Set;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +23,5 @@ public class ReqQuestion  {
 	private String option4;
 	private String answer;
 	private Long quizId;
-	
-	
 	
 }

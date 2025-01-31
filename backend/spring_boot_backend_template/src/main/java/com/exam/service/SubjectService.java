@@ -15,5 +15,7 @@ public interface SubjectService {
 	public List<Subject> getAllSubjects();
 	public Subject getSubject(Long subId);
 	public int deleteSubject(Long subId);
+	
+	public List<Subject> findByCourseId(Long courseId);
 
 }

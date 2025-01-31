@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.exam.dto.ApiResponse;
 import com.exam.dto.ReqStudent;
 import com.exam.dto.ReqStudentSignIn;
+import com.exam.dto.ReqStudentUpdate;
 import com.exam.entity.Course;
 import com.exam.entity.Student;
 import com.exam.service.StudentService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -40,9 +42,9 @@ public class StudentController {
 		
 		Student student = studentService.addStudent(entity);
 		if(student != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Faculty Inserted: "+ student.getId(), 1));
+			return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Student Inserted: "+ student.getId(), 1));
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Faculty not Inserted...!", 0));	
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Student not Inserted...!", 0));	
 		
 	}
 	
@@ -50,9 +52,20 @@ public class StudentController {
 	public ResponseEntity<?> getMethodName(@RequestBody ReqStudentSignIn entity) {
 		Student student = studentService.selectStudent(entity);
 		if(student != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("student logged in ", 1));
+			return ResponseEntity.status(HttpStatus.OK).body(student);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("invalid credentials", 0));
 	}
+	
+	@PutMapping
+	public ResponseEntity<?> putMethodName(@RequestBody ReqStudentUpdate entity) {
+		
+		Student student = studentService.updateStudent(entity);
+		if(student != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(student);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("invalid credentials", 0));
+	}
+	
 	
 }

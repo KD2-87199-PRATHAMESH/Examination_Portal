@@ -23,11 +23,10 @@ export async function getSpecilization() {
 
 export async function onRegister(reqBody) {
     try {
-        debugger
         const url = createUrl('faculty')
         const response = await axios.post(url, reqBody, {
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
         });
         return response.data
@@ -41,7 +40,35 @@ export async function loginFaculty(reqBody) {
         const url = createUrl('faculty/signin')
         const response = await axios.post(url, reqBody, {
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data
+    } catch (ex) {
+        return { status: 'error', error: ex }
+    }
+}
+
+export async function getSubjects(courseId) {
+    try {
+        const url = createUrl('subject/course/' + courseId)
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data
+    } catch (ex) {
+        return { status: 'error', error: ex }
+    }
+}
+
+export async function updateFaculty(reqBody) {
+    try {
+        const url = createUrl('faculty')
+        const response = await axios.put(url, reqBody, {
+            headers: {
+                'Content-Type': 'application/json',
             },
         });
         return response.data

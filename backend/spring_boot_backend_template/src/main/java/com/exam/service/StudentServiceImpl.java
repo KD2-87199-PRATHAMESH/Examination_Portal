@@ -10,6 +10,7 @@ import com.exam.dao.CourseDao;
 import com.exam.dao.StudentDao;
 import com.exam.dto.ReqStudent;
 import com.exam.dto.ReqStudentSignIn;
+import com.exam.dto.ReqStudentUpdate;
 import com.exam.entity.Course;
 import com.exam.entity.Student;
 
@@ -46,6 +47,18 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Student selectStudent(ReqStudentSignIn entity) {
 		Student s = studentDao.findByEmailAndPassword(entity.getEmail(), entity.getPassword()).orElseThrow();
+		return s;
+	}
+
+	@Override
+	public Student updateStudent(ReqStudentUpdate entity) {
+		Student s = studentDao.findById(entity.getId()).get();
+		Course c = courseDao.findById(entity.getSelectedCourse()).get();
+		s.setFName(entity.getFName());
+		s.setLName(entity.getLName());
+		s.setMobNo(entity.getMobNo());
+		s.setSelectedCourse(c);
+		s = studentDao.save(s);
 		return s;
 	}
 
