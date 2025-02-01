@@ -90,5 +90,13 @@ public class SubjectController {
 		return ResponseEntity.status(HttpStatus.OK).body(listSubject);
 	}
 	
+	@GetMapping("/faculty/{facultyId}")
+	public ResponseEntity<?> getMethodName1(@PathVariable("facultyId") Long facultyId) {
+
+		Subject sub = subjectService.findByFacultyId(facultyId);
+
+		return ResponseEntity.status(HttpStatus.OK).body(sub);
+
+	}
 	
 }

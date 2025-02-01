@@ -83,4 +83,15 @@ public class SubjectServiceImpl implements SubjectService {
 		return ll;
 	}
 
+	@Override
+
+	public Subject findByFacultyId(Long facultyId) {
+
+		Subject s = subjectDao.findByFaculty_Id(facultyId);
+
+		return s;
+
+	}
+
+
 }
