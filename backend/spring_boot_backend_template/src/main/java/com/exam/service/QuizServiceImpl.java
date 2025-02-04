@@ -1,6 +1,7 @@
 package com.exam.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.exam.dao.SubjectDao;
 import com.exam.dto.ApiResponse;
 import com.exam.dto.ReqQuiz;
 import com.exam.dto.ReqUpdateQuiz;
+import com.exam.dto.RespQuizDto;
 import com.exam.entity.Quiz;
 import com.exam.entity.Subject;
 
@@ -95,13 +97,22 @@ Quiz quiz=quizDao.findById(quizId).get();
 		
 		if(quizDao.existsById(reqUpdateQuiz.getId()))
 		{
-			Quiz qEntity=modelMapper.map(reqUpdateQuiz, Quiz.class);
-			Quiz uQuiz=quizDao.save(qEntity);
+			Quiz q = quizDao.findById(reqUpdateQuiz.getId()).get();
+			q.setMarksPerQue(reqUpdateQuiz.getMarksPerQue());
+			q.setNoOfQuestions(reqUpdateQuiz.getNoOfQuestions());
+			q.setPassMarks(reqUpdateQuiz.getPassMarks());
+			q.setQTitle(reqUpdateQuiz.getQTitle());
+			quizDao.save(q);
 			return new ApiResponse("Quiz updated", 1);
 		}
 		return new ApiResponse("Quiz not updated", 0);
 	}
 
-
+	@Override
+	public List<RespQuizDto> getBySubjectId(Long subjectId) {
+		List<Quiz> l = quizDao.findBySubjectIdAndIsActiveTrue(subjectId);
+		List<RespQuizDto> ll = l.stream().map(quiz -> modelMapper.map(quiz, RespQuizDto.class)).collect(Collectors.toList());
+		return ll;
+	}
 
 }

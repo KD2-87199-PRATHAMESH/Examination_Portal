@@ -76,3 +76,17 @@ export async function updateFaculty(reqBody) {
         return { status: 'error', error: ex }
     }
 }
+
+export async function getFacultySubject(reqBody) {
+    try {
+        const url = createUrl('subject/faculty/'+reqBody)
+        const response = await axios.get(url, reqBody, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data
+    } catch (ex) {
+        return { status: 'error', error: ex }
+    }
+}

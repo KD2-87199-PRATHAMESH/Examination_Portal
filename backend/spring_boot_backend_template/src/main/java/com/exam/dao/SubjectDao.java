@@ -12,4 +12,5 @@ public interface  SubjectDao extends JpaRepository<Subject, Long> {
 	
 	List<Subject> findByCourseId_Id(Long courseId);
 	
+	Subject findByFaculty_Id(Long facultyId);
 }

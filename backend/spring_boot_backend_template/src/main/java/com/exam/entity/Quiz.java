@@ -42,12 +42,11 @@ public class Quiz extends BaseEntity {
 	@Column(name="Q_Status")
 	private boolean isActive=false;
 	
-//	@JsonIgnore
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "subject_id", nullable = false)
 	private Subject subject;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "quiz",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "quiz",fetch=FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Question> questions=new ArrayList<>();
 }

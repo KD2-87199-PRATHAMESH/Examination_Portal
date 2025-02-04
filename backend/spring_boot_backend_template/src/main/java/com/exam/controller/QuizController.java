@@ -1,11 +1,14 @@
 package com.exam.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.exam.dto.ApiResponse;
 import com.exam.dto.ReqQuiz;
 import com.exam.dto.ReqUpdateQuiz;
+import com.exam.dto.RespQuizDto;
 import com.exam.entity.Quiz;
 import com.exam.service.QuizService;
 
@@ -36,7 +40,7 @@ public class QuizController {
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Quiz not Inserted...!", 0));
 	}
 	
-	@PutMapping("/")
+	@PatchMapping("/")
 	public ResponseEntity<?> UpdateQuiz(@RequestBody ReqUpdateQuiz reqUpdateQuiz) {
 		ApiResponse res = quizService.updateQuiz(reqUpdateQuiz);
 		return ResponseEntity.status(HttpStatus.OK).body(res);
@@ -73,5 +77,12 @@ public class QuizController {
 		
 	}
 
-
+	@GetMapping("/subject/{subjectId}")
+	public ResponseEntity<?> getMethodName1(@PathVariable Long subjectId) {
+		List<RespQuizDto> list = quizService.getBySubjectId(subjectId);
+		return ResponseEntity.status(HttpStatus.OK).body(list);
+	}
+	
+	
+	
 }

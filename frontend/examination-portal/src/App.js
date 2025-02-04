@@ -9,7 +9,7 @@ import Home from "./screens/Home";
 import Profile from "./screens/Profile";
 import FacultyHome from "./screens/FacultyHome";
 import FacultyProfile from "./screens/FacultyProfile";
-
+import EditQuiz from "./Components/EditQuiz ";
 
 function App() {
     return (
@@ -25,8 +25,7 @@ function App() {
                 <Route path="/facultyhome" element={<FacultyHome />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/profilefaculty" element={<FacultyProfile />} />
-            
-
+                <Route path="/edit-quiz/:id" element={<EditQuiz />} />
             </Routes>
         </div>
     );

@@ -43,10 +43,11 @@ function FacultyProfile() {
         //     "lname": "string",
         //     "fname": "string"
         //   }
-        
         const reqBody = { id, fname, lname, mobNo, degree, specilization: specialization };
         const res = await updateFaculty(reqBody);
-        sessionStorage.setItem("faculty", res)
+        sessionStorage.setItem("faculty", JSON.stringify(res))
+        loadData()
+        setIsEditing(false);
     };
 
 

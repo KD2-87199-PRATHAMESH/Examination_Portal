@@ -28,12 +28,10 @@ public class BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@JsonIgnore
 	@CreationTimestamp
 	@Column(name = "created_on", nullable = false)
 	private LocalDate createdOn;
 	
-	@JsonIgnore
 	@UpdateTimestamp
 	@Column(name = "updated_on", nullable = false)
 	private LocalDateTime updatedOn;
