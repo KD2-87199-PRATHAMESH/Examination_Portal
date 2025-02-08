@@ -16,7 +16,7 @@ export async function onRegister(reqBody) {
         const url = createUrl('student')
         const response = await axios.post(url, reqBody, {
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
         });
         return response.data
@@ -30,7 +30,7 @@ export async function loginStudent(reqBody) {
         const url = createUrl('student/signin')
         const response = await axios.post(url, reqBody, {
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
         });
         return response.data
@@ -44,7 +44,21 @@ export async function updateStudent(reqBody) {
         const url = createUrl('student')
         const response = await axios.put(url, reqBody, {
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data
+    } catch (ex) {
+        return { status: 'error', error: ex }
+    }
+}
+
+export async function getStudentSubject(reqBody) {
+    try {
+        const url = createUrl('subject/course/')
+        const response = await axios.get(url + reqBody, {
+            headers: {
+                'Content-Type': 'application/json',
             },
         });
         return response.data

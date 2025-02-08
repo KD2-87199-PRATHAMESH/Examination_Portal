@@ -14,23 +14,16 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ReqQuiz  {
 
-//	private Long id;
-
 	private String qTitle;
-//	@Column(name = "Q_description")
-//	private String qDescription;
 
 	private String marksPerQue;
 
 	private String passMarks;
 	
-
 	private String noOfQuestions;
 	
-
-	private boolean isActive=false;
+	private boolean isActive=true;
 	
 	private Long subId;
-	
 	
 }

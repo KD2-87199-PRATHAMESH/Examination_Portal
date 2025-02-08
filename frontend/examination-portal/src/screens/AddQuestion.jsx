@@ -1,128 +1,63 @@
+import Question from "../Components/Question";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { findQuestionByQuizId } from "../services/quiz";
+import { Link } from "react-router-dom";
 
 function AddQuestion() {
-    const [noOfQuestions, setNoOfQuestions] = useState(10);
-    const [quizId, setQuizId] = useState(1);
+    const location = useLocation();
+    const { id, noQ } = location.state || {};
+
+    const [noOfQuestions, setNoOfQuestions] = useState('');
+    const [quizId, setQuizId] = useState('');
     const [questions, setQuestions] = useState([]);
 
     useEffect(() => {
-        // Initialize state with empty question data
-        const initialQuestions = Array.from({ length: noOfQuestions }, (_, index) => ({
-            id: index + 1,
-            text: "",
-            options: ["", "", "", ""],
-            correctAnswer: "",
-        }));
-        setQuestions(initialQuestions);
-    }, [noOfQuestions]);
+        if (id && noQ) {
+            setQuizId(id);
+            setNoOfQuestions(noQ);
+        }
+        loadQuestions(id);
+    }, [id, noQ]);
 
-    const handleQuestionChange = (index, value) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[index].text = value;
-        setQuestions(updatedQuestions);
-    };
+    async function loadQuestions(quizId) {
+        const q = await findQuestionByQuizId(quizId);
+        const remain = noQ - q.length;
 
-    const handleOptionChange = (qIndex, optIndex, value) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[qIndex].options[optIndex] = value;
-        setQuestions(updatedQuestions);
-    };
+        for (let index = 0; index < remain; index++) {
+            q.push({
+                id: null,
+                content: "",
+                option1: "",
+                option2: "",
+                option3: "",
+                option4: "",
+                answer: "",
+            })
+        }
 
-    const handleCorrectAnswerChange = (qIndex, value) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[qIndex].correctAnswer = value;
-        setQuestions(updatedQuestions);
-    };
+        setQuestions(q)
+    }
 
     return (
-        <div className="container mt-4">
-            <div className="row">
-                <div className="col-md-3">
-                    <div className="list-group">
-                        {questions.map((_, index) => (
-                            <a key={index} href={`#question-${index}`} className="list-group-item list-group-item-action">
-                                Question {index + 1}
-                            </a>
-                        ))}
-                    </div>
-                </div>
-
-                <div className="col-md-9">
-                    {questions.map((question, qIndex) => (
-                        <div key={qIndex} id={`question-${qIndex}`} className="card mb-3">
-                            <div className="card-header">Question {qIndex + 1}</div>
-                            <div className="card-body">
-                                {/* Question Input */}
-                                <div className="mb-3">
-                                    <label className="form-label">Enter Question:</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={question.text}
-                                        onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
-                                    />
-                                </div>
-
-                                {/* Options Inputs */}
-                                <div className="row">
-                                    {question.options.map((option, optIndex) => (
-                                        <div className="col-md-6 mb-3" key={optIndex}>
-                                            <label className="form-label">Option {optIndex + 1}:</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                value={option}
-                                                onChange={(e) => handleOptionChange(qIndex, optIndex, e.target.value)}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Correct Answer Selection */}
-                                <div className="mb-3">
-                                    <label className="form-label">Select Correct Answer:</label>
-                                    <select
-                                        className="form-select"
-                                        value={question.correctAnswer}
-                                        onChange={(e) => handleCorrectAnswerChange(qIndex, e.target.value)}
-                                    >
-                                        <option value="">Choose...</option>
-                                        {question.options.map((option, optIndex) => (
-                                            <option key={optIndex} value={option}>
-                                                {option || `Option ${optIndex + 1}`}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+        <div>
+            <h2>Add Questions</h2>
+            {questions.map((ques, index) => (
+                <Question
+                    index={index}
+                    id={ques.id}
+                    content={ques.content}
+                    option1={ques.option1}
+                    option2={ques.option2}
+                    option3={ques.option3}
+                    option4={ques.option4}
+                    answer={ques.answer}
+                    quizId={quizId}
+                />
+            ))}
+            <Link to="/facultyhome" className="btn btn-danger ms-3">Cancel</Link>
         </div>
     );
 }
 
 export default AddQuestion;
-
-
-// import { useEffect, useState } from "react";
-
-// function AddQuestion() {
-
-//     const [ noOfQuestions, setNoOfQuestions ] = useState('')
-//     const [ quizId, setQuizId ] = useState('')
-
-//     useEffect(() => {
-//         setNoOfQuestions(10)
-//         setQuizId(1)
-//     }, []);
-
-//     return ( 
-//         <div>
-                
-//         </div>
-//     );
-// }
-
-// export default AddQuestion;

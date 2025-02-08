@@ -12,7 +12,7 @@ function NavBarFaculty({ subject }) {
 
             <div className="collapse navbar-collapse justify-content-center">
                 <span className="navbar-text font-weight-bold">
-                    {subject || "No Subject Selected"}
+                    {subject || ""}
                 </span>
             </div>
 
