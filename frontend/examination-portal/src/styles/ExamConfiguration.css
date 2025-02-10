@@ -12,6 +12,7 @@
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
+    border: #ffa600;
   }
   
   form {
@@ -22,6 +23,7 @@
   
   label {
     font-weight: 600;
+    
   }
   
   input,

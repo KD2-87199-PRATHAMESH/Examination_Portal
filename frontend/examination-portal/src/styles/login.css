@@ -1,47 +1,97 @@
 
+
 .center-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f8f9fa; 
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Soft gradient */
 }
+
 
 .login-box {
     background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
     width: 100%;
     max-width: 400px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+
+.login-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
 
 .header {
     text-align: center;
     margin-bottom: 20px;
-    color: #333333;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
 }
 
+/* Input field styling */
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+/* Focus effect on inputs */
+input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Margin below fields */
 .mb-3 {
     margin-bottom: 15px;
 }
 
-.inbl {
-    text-align: center;
-    margin-top: 10px;
+/* Button styling */
+.btn-success {
+    width: 100%;
+    padding: 12px;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #28a745, #218838); /* Green gradient */
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
+/* Button hover effect */
+.btn-success:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34);
+    transform: scale(1.05);
+}
+
+/* Centered text with links */
+.inbl {
+    text-align: center;
+    margin-top: 12px;
+}
+
+/* Link styling */
 .inbl a {
     color: #007bff;
     text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
+/* Link hover effect */
 .inbl a:hover {
+    color: #0056b3;
     text-decoration: underline;
-}
-
-.btn-success {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
 }
