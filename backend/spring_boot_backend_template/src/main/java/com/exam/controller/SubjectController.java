@@ -1,6 +1,5 @@
 package com.exam.controller;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +23,6 @@ import com.exam.dto.ReqUpdateSubject;
 import com.exam.dto.RespDtoSubjects;
 import com.exam.entity.Subject;
 import com.exam.service.SubjectService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/subject")
@@ -91,6 +89,12 @@ public class SubjectController {
 		List<Subject> listSubject = subjectService.findByCourseId(courseId);
 		List<RespDtoSubjects> ll = listSubject.stream().map(sub -> modelMapper.map(sub, RespDtoSubjects.class)).collect(Collectors.toList());
 		return ResponseEntity.status(HttpStatus.OK).body(ll);
+	}
+	
+	@GetMapping("/coursee/{courseId}")
+	public ResponseEntity<?> getMethodName12(@PathVariable("courseId") Long courseId) {
+		List<Subject> listSubject = subjectService.findByCourseId(courseId);
+		return ResponseEntity.status(HttpStatus.OK).body(listSubject);
 	}
 
 	@GetMapping("/faculty/{facultyId}")

@@ -2,6 +2,7 @@ package com.exam.controller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,9 @@ public class QuizController {
 
 	@Autowired
 	private QuizService quizService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@PostMapping("/")
 	public ResponseEntity<?> postMethodName(@RequestBody ReqQuiz entity) {
@@ -50,9 +54,11 @@ public class QuizController {
 	public ResponseEntity<?> getQuiz(@PathVariable("quizId") Long quizId) {
 //		return this.subjectService.getSubject(subjectId);
 		Quiz quiz = quizService.getQuiz(quizId);
-
+		
+		RespQuizDto res = modelMapper.map(quiz, RespQuizDto.class);
+		
 		if (quiz != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(quiz);
+			return ResponseEntity.status(HttpStatus.OK).body(res);
 		}
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("quiz not found", 0));

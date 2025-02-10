@@ -12,6 +12,8 @@ import FacultyProfile from "./screens/FacultyProfile";
 import EditQuiz from "./Components/EditQuiz ";
 import AddQuiz from "./screens/AddQuiz";
 import AddQuestion from "./screens/AddQuestion";
+import QuizTest from "./Components/QuizTest";
+import Exam from "./Components/Exam";
 
 function App() {
     return (
@@ -30,6 +32,8 @@ function App() {
                 <Route path="/edit-quiz" element={<EditQuiz />} />
                 <Route path="/addQuiz" element={<AddQuiz />} />
                 <Route path="/addQues" element={<AddQuestion />} />
+                <Route path="/quizInstr" element={<QuizTest />} />
+                <Route path="/exam" element={<Exam />} />
             </Routes>
         </div>
     );

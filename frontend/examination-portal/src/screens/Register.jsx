@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Await, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getDegree, getSpecilization, onRegister, getSubjects } from "../services/faculty";
 import { getCourse } from "../services/student";
 import '../styles/register.css';

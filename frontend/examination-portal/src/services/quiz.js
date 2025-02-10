@@ -70,3 +70,31 @@ export async function addQuiz(reqBody) {
         return { status: 'error', error: ex }
     }
 }
+
+export async function getQuizById(reqBody) {
+    try {
+        const url = createUrl('question/quizz/' + reqBody)
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data
+    } catch (ex) {
+        return { status: 'error', error: ex }
+    }
+}
+
+export async function getQuizByTitleId(reqBody) {
+    try {
+        const url = createUrl('quiz/' + reqBody)
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        return response.data
+    } catch (ex) {
+        return { status: 'error', error: ex }
+    }
+}

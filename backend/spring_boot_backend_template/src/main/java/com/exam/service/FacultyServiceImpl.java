@@ -27,9 +27,12 @@ public class FacultyServiceImpl implements FacultyService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	private PasswordEncoderService pass = new PasswordEncoderService();
+	
 	@Override
 	public Faculty addFaculty(ReqFaculty reqFaculty) {
 		Faculty faculty = modelMapper.map(reqFaculty, Faculty.class);
+		faculty.setPassword(pass.encodePassword(reqFaculty.getPassword()));
 		Faculty inserted = facultyDao.save(faculty);
 		Subject s = subjectDao.findById(reqFaculty.getSubjectId()).get();
 		s.setFaculty(inserted);
@@ -38,8 +41,11 @@ public class FacultyServiceImpl implements FacultyService {
 
 	@Override
 	public Faculty selectFaculty(ReqStudentSignIn entity) {
-		Faculty f = facultyDao.findByEmailAndPassword(entity.getEmail(), entity.getPassword()).orElseThrow();
-		return f;
+		Faculty f = facultyDao.findByEmail(entity.getEmail()).orElseThrow();
+		if(pass.verifyPassword(entity.getPassword(), f.getPassword())) {
+			return f;			
+		}
+		return null;
 	}
 
 	@Override

@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function NavBarFaculty({ subject }) {
+
+    function sess() {
+        sessionStorage.clear()
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="#">Examination Portal</a>
@@ -19,7 +24,7 @@ function NavBarFaculty({ subject }) {
             <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div className="navbar-nav">
                     <Link className="nav-item nav-link mx-3" to="/profilefaculty">Profile</Link>
-                    <a className="nav-item nav-link mx-3" href="#">Logout</a>
+                    <Link onClick={sess} className="nav-item nav-link mx-3" to="/">Logout</Link>
                 </div>
             </div>
         </nav>

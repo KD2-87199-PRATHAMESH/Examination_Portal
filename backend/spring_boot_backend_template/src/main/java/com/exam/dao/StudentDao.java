@@ -9,5 +9,6 @@ import com.exam.entity.Student;
 public interface StudentDao extends JpaRepository<Student, Long> {
 	
 	Optional<Student> findByEmailAndPassword(String email, String password);
+	Optional<Student> findByEmail(String email);
 
 }
