@@ -23,7 +23,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public Subject addSubject(ReqSubject reqSubject) {
-		// TODO Auto-generated method stub
+		
 
 		Subject subject = modelMapper.map(reqSubject, Subject.class);
 
@@ -35,7 +35,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public Subject updateSubject(ReqUpdateSubject reqUpdateSubject) {
-		// TODO Auto-generated method stub
+
 //		Subject subject=modelMapper.map(reqUpdateSubject,Subject.class);
 
 		Subject updateSubject = subjectDao.findById(reqUpdateSubject.getId()).get();
@@ -46,13 +46,13 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public List<Subject> getAllSubjects() {
-		// TODO Auto-generated method stub
+		
 		return this.subjectDao.findByIsActiveTrue();
 	}
 
 	@Override
 	public Subject getSubject(Long subId) {
-		// TODO Auto-generated method stub
+		
 		Subject subject = subjectDao.findById(subId).get();
 
 		if (subject.isActive() && subject != null) {
@@ -65,7 +65,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public int deleteSubject(Long subId) {
-		// TODO Auto-generated method stub
+		
 		Subject subject = subjectDao.findById(subId).get();
 		subject.setActive(false);
 

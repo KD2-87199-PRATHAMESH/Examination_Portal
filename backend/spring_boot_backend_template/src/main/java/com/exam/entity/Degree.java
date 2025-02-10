@@ -4,5 +4,7 @@ public enum Degree {
 	BTECH,
 	MTECH,
 	BSC,
-	MSC
+	MSC,
+	MCA
+
 }

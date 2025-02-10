@@ -18,8 +18,8 @@ function AddQuestion() {
         const remaining = noQue - existingQuestions.length;
         
         setQuestions([
-            ...existingQuestions,
-            ...Array.from({ length: remaining }, () => ({
+            existingQuestions,
+            Array.from({ length: remaining }, () => ({
                 id: null, content: "", option1: "", option2: "", option3: "", option4: "", answer: ""
             }))
         ]);
