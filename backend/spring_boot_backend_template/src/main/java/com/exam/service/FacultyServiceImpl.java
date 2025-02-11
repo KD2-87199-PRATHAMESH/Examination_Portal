@@ -18,27 +18,28 @@ import jakarta.transaction.Transactional;
 @Service
 public class FacultyServiceImpl implements FacultyService {
 
-	@Autowired
-	private FacultyDao facultyDao;
-	
-	@Autowired
-	private SubjectDao subjectDao;
-	
-	@Autowired
-	private ModelMapper modelMapper;
-	
-	private PasswordEncoderService pass = new PasswordEncoderService();
-	
-	@Override
-	public Faculty addFaculty(ReqFaculty reqFaculty) {
-		Faculty faculty = modelMapper.map(reqFaculty, Faculty.class);
-		faculty.setPassword(pass.encodePassword(reqFaculty.getPassword()));
-		Faculty inserted = facultyDao.save(faculty);
-		Subject s = subjectDao.findById(reqFaculty.getSubjectId()).get();
-		s.setFaculty(inserted);
-		return inserted;
-	}
+    @Autowired
+    private FacultyDao facultyDao;
+    
+    @Autowired
+    private SubjectDao subjectDao;
+    
+    @Autowired
+    private ModelMapper modelMapper;
+    
+    private PasswordEncoderService pass = new PasswordEncoderService();
+    
+    @Override
+    public Faculty addFaculty(ReqFaculty reqFaculty) {
+        Faculty faculty = modelMapper.map(reqFaculty, Faculty.class);
+        faculty.setPassword(pass.encodePassword(reqFaculty.getPassword()));
+        Faculty inserted = facultyDao.save(faculty);
+        Subject s = subjectDao.findById(reqFaculty.getSubjectId()).get();
+        s.setFaculty(inserted);
+        return inserted;
+    }
 
+<<<<<<< HEAD
 	@Override
 	public Faculty selectFaculty(ReqStudentSignIn entity) {
 		Faculty f = facultyDao.findByEmail(entity.getEmail()).orElseThrow();
@@ -126,5 +127,26 @@ public class FacultyServiceImpl implements FacultyService {
 	}
 
 >>>>>>> vishal
+=======
+    @Override
+    public Faculty selectFaculty(ReqStudentSignIn entity) {
+        Faculty f = facultyDao.findByEmail(entity.getEmail()).orElseThrow();
+        if(pass.verifyPassword(entity.getPassword(), f.getPassword())) {
+            return f;            
+        }
+        return null;
+    }
+>>>>>>> 6fe6fa52519273e9c64832371b759bc49cdf675f
 
+    @Override
+    public Faculty updateFaculty(ReqFacultyUpdate entity) {
+        Faculty f = facultyDao.findById(entity.getId()).get();
+        f.setFName(entity.getFName());
+        f.setLName(entity.getLName());
+        f.setMobNo(entity.getMobNo());
+        f.setDegree(entity.getDegree());
+        f.setSpecilization(entity.getSpecilization());
+        f = facultyDao.save(f);
+        return f;
+    }
 }

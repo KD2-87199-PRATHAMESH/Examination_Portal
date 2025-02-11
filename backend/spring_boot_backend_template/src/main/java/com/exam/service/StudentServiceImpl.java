@@ -30,10 +30,15 @@ public class StudentServiceImpl implements StudentService {
 	private ModelMapper modelMapper;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private PasswordEncoderService pass = new PasswordEncoderService();
 	
 =======
 >>>>>>> vishal
+=======
+	private PasswordEncoderService pass = new PasswordEncoderService();
+	
+>>>>>>> 6fe6fa52519273e9c64832371b759bc49cdf675f
 	@Override
 	public List<Course> findAllCourses() {
 		List<Course> courses =  courseDao.findAll();
@@ -46,9 +51,13 @@ public class StudentServiceImpl implements StudentService {
 		Student s = modelMapper.map(entity, Student.class);
 		s.setSelectedCourse(c);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		s.setPassword(pass.encodePassword(s.getPassword()));
 =======
 >>>>>>> vishal
+=======
+		s.setPassword(pass.encodePassword(s.getPassword()));
+>>>>>>> 6fe6fa52519273e9c64832371b759bc49cdf675f
 		s = studentDao.save(s);
 		return s;
 	}
@@ -56,15 +65,21 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Student selectStudent(ReqStudentSignIn entity) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6fe6fa52519273e9c64832371b759bc49cdf675f
 		Student s = studentDao.findByEmail(entity.getEmail()).orElseThrow();
 		if(pass.verifyPassword(entity.getPassword(), s.getPassword()))
 			return s;
 		else
 			return null;
+<<<<<<< HEAD
 =======
 		Student s = studentDao.findByEmailAndPassword(entity.getEmail(), entity.getPassword()).orElseThrow();
 		return s;
 >>>>>>> vishal
+=======
+>>>>>>> 6fe6fa52519273e9c64832371b759bc49cdf675f
 	}
 
 	@Override
