@@ -38,7 +38,11 @@ public class Faculty extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Specilization specilization;
 	
+<<<<<<< HEAD
 	@Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+=======
+	@Column(name = "status", nullable = false)
+>>>>>>> vishal
 	private boolean status = true;
 	
 }

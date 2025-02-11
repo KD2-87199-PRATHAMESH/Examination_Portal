@@ -1,5 +1,9 @@
 package com.exam.controller;
 
+<<<<<<< HEAD
+=======
+import java.util.Collections;
+>>>>>>> vishal
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +27,10 @@ import com.exam.dto.ReqUpdateSubject;
 import com.exam.dto.RespDtoSubjects;
 import com.exam.entity.Subject;
 import com.exam.service.SubjectService;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.RequestParam;
+>>>>>>> vishal
 
 @RestController
 @RequestMapping("/subject")
@@ -82,6 +90,7 @@ public class SubjectController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Error While Deleting Subject...!", 0));
 
+<<<<<<< HEAD
 	}
 
 	@GetMapping("/course/{courseId}")
@@ -95,6 +104,15 @@ public class SubjectController {
 	public ResponseEntity<?> getMethodName12(@PathVariable("courseId") Long courseId) {
 		List<Subject> listSubject = subjectService.findByCourseId(courseId);
 		return ResponseEntity.status(HttpStatus.OK).body(listSubject);
+=======
+	}
+
+	@GetMapping("/course/{courseId}")
+	public ResponseEntity<?> getMethodName(@PathVariable("courseId") Long courseId) {
+		List<Subject> listSubject = subjectService.findByCourseId(courseId);
+		List<RespDtoSubjects> ll = listSubject.stream().map(sub -> modelMapper.map(sub, RespDtoSubjects.class)).collect(Collectors.toList());
+		return ResponseEntity.status(HttpStatus.OK).body(ll);
+>>>>>>> vishal
 	}
 
 	@GetMapping("/faculty/{facultyId}")

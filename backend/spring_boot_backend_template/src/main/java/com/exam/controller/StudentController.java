@@ -39,6 +39,10 @@ public class StudentController {
 	
 	@PostMapping
 	public ResponseEntity<?> postMethodName(@RequestBody ReqStudent entity) {
+<<<<<<< HEAD
+=======
+		
+>>>>>>> vishal
 		Student student = studentService.addStudent(entity);
 		if(student != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Student Inserted: "+ student.getId(), 1));
@@ -58,11 +62,20 @@ public class StudentController {
 	
 	@PutMapping
 	public ResponseEntity<?> putMethodName(@RequestBody ReqStudentUpdate entity) {
+<<<<<<< HEAD
+=======
+		
+>>>>>>> vishal
 		Student student = studentService.updateStudent(entity);
 		if(student != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(student);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("invalid credentials", 0));
 	}
+<<<<<<< HEAD
 		
+=======
+	
+	
+>>>>>>> vishal
 }

@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-function NavBarFaculty({ subject }) {
+function NavBarAdmin({ subject }) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="#">Examination Portal</a>
@@ -18,7 +18,7 @@ function NavBarFaculty({ subject }) {
 
             <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div className="navbar-nav">
-                    <Link className="nav-item nav-link mx-3" to="/profilefaculty">Profile</Link>
+                    {/* <Link className="nav-item nav-link mx-3" to="/profilefaculty">Profile</Link> */}
                     <a className="nav-item nav-link mx-3" href="#">Logout</a>
                 </div>
             </div>
@@ -26,4 +26,4 @@ function NavBarFaculty({ subject }) {
     );
 }
 
-export default NavBarFaculty;
+export default NavBarAdmin;

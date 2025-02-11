@@ -51,7 +51,7 @@ export async function loginFaculty(reqBody) {
 
 export async function getSubjects(courseId) {
     try {
-        const url = createUrl('subject/coursee/' + courseId)
+        const url = createUrl('subject/course/' + courseId)
         const response = await axios.get(url, {
             headers: {
                 'Content-Type': 'application/json',
@@ -90,3 +90,4 @@ export async function getFacultySubject(reqBody) {
         return { status: 'error', error: ex }
     }
 }
+

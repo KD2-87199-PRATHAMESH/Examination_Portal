@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginStudent } from "../services/student";
 import { loginFaculty } from "../services/faculty";
+import { loginAdmin } from "../services/Admin";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -65,9 +66,22 @@ function Login() {
                 toast.error("invalid credentials try again...!")
             }
         }
-        else{
-            toast.error("invalid credentials try again...!")
+
+        else if (role == 3) {
+
+            const reqBody = { email, password };
+
+            const res = await loginAdmin(reqBody);
+            if (res.status == true) {
+                sessionStorage.setItem("admin", JSON.stringify(res));
+                toast.success("login successfull...!")
+                navigate("/adminhome")
+            }
+            else {
+                toast.error("invalid credentials try again...!")
+            }
         }
+      
 
     }
 
@@ -104,6 +118,7 @@ function Login() {
                     <option value="">Select Role</option>
                     <option value="1">Student</option>
                     <option value="2">Faculty</option>
+                    <option value="3">Admin</option>
                 </select>
 
                 <div className="row mb-3 inbl">

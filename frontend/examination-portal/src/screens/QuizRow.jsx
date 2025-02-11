@@ -28,7 +28,7 @@ function QuizRow({ id, title, marksPerQue, noQ, pass, onDelete }) {
             <td>{pass}</td>
             <td>
                 <Link to="/addQues" state={{ id, noQ }} className="btn btn-secondary me-2">
-                    Add / Update Questions
+                    Add Questions
                 </Link>
                 <button className="btn btn-primary me-2" onClick={handleEdit}>
                     Edit

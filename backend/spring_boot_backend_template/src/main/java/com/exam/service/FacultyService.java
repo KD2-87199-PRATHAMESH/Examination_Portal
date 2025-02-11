@@ -12,5 +12,11 @@ public interface FacultyService {
 	Faculty selectFaculty(ReqStudentSignIn entity);
 
 	Faculty updateFaculty(ReqFacultyUpdate entity);
+<<<<<<< HEAD
+=======
+	
+	Faculty getFaculty(Long facultyId);
+	
+>>>>>>> vishal
 	
 }
