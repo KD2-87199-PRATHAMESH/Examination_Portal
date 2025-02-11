@@ -1,9 +1,10 @@
 import NavBarFaculty from "./NavBarFaculty";
 import { useState, useEffect } from "react";
 import { getDegree, getSpecilization, updateFaculty } from "../services/faculty";
-import { Link } from "react-router-dom";
 
 function FacultyProfile() {
+
+    // {"id":2,"email":"p@gmail.com","password":"pppppppp","mobNo":"9999999999","degree":"MTECH","specilization":"DEVOPS","status":true,"lname":"rwerwer","fname":"dwqerwer"}
 
     const [id, setId] = useState('');
     const [fname, setFirstName] = useState('');
@@ -34,7 +35,14 @@ function FacultyProfile() {
     }
 
     const handleSubmit = async () => {
-
+        // {
+        //     "id": 0,
+        //     "mobNo": "string",
+        //     "degree": "BTECH",
+        //     "specilization": "CSE",
+        //     "lname": "string",
+        //     "fname": "string"
+        //   }
         const reqBody = { id, fname, lname, mobNo, degree, specilization: specialization };
         const res = await updateFaculty(reqBody);
         sessionStorage.setItem("faculty", JSON.stringify(res))
@@ -134,16 +142,16 @@ function FacultyProfile() {
 
                     <div className="mt-3">
                         {isEditing ? (
-                            <button className="btn btn-primary me-2" onClick={handleSubmit}>
+                            <button className="btn btn-success me-2" onClick={handleSubmit}>
                                 Submit
                             </button>
                         ) : (
-                            <button className="btn btn-primary me-2" onClick={() => setIsEditing(true)}>
+                            <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
                                 Edit
                             </button>
                         )}
-                        <Link to="/facultyhome" className="btn btn-secondary">Cancel</Link>
                     </div>
+
 
                 </div>
             </div>

@@ -3,7 +3,6 @@ import { getCourse } from "../services/student";
 import NavBarStudent from "./NavBarStudent";
 import { useEffect } from "react";
 import { updateStudent } from "../services/student";
-import { Link } from "react-router-dom";
 
 function Profile() {
 
@@ -112,15 +111,14 @@ function Profile() {
 
                     <div className="mt-3">
                         {isEditing ? (
-                            <button className="btn btn-primary me-2" onClick={handleSubmit}>
+                            <button className="btn btn-success me-2" onClick={handleSubmit}>
                                 Submit
                             </button>
                         ) : (
-                            <button className="btn btn-primary me-2" onClick={() => setIsEditing(true)}>
+                            <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
                                 Edit
                             </button>
                         )}
-                        <Link to="/home" className="btn btn-secondary">Cancel</Link>
                     </div>
                 </div>
             </div>
