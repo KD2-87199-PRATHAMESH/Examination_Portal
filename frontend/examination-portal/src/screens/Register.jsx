@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getDegree, getSpecilization, onRegister } from "../services/faculty";
+import { getDegree, getSpecilization, onRegister, getSubjects } from "../services/faculty";
+import { getCourse } from "../services/student";
 import '../styles/register.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,11 +21,21 @@ function Register() {
     const [deg, setDeg] = useState([]);
     const [spec, setSpec] = useState([]);
 
+    const [courseId, setCourseId] = useState('')
+    const [subjectId, setSubjectId] = useState('')
+
+    const [courses, setCourses] = useState([]);
+    
+    const [subjectsWithNullFaculty, setSub] = useState([]);
+
+
     async function loadData() {
         const d = await getDegree();
         const s = await getSpecilization();
         setDeg(d);
         setSpec(s);
+        const c = await getCourse();
+        setCourses(c);
     }
 
     useEffect(() => {
@@ -36,13 +47,12 @@ function Register() {
             toast.error("First name is required.");
             return;
         }
-        
+
         if (!lName.trim()) {
             toast.error("Last name is required.");
             return;
         }
-    
-        
+
         const phoneRegex = /^[0-9]{10}$/;
         if (!mobNo.trim()) {
             toast.error("Phone number is required.");
@@ -51,14 +61,19 @@ function Register() {
             toast.error("Invalid phone number. Must be 10 digits.");
             return;
         }
-        
+
         if (!degree) {
             toast.error("Please select a degree.");
             return;
         }
-    
+
         if (!specialization) {
             toast.error("Please select a specialization.");
+            return;
+        }
+
+        if (!subjectId) {
+            toast.error("Please select a subject.");
             return;
         }
 
@@ -67,7 +82,7 @@ function Register() {
             toast.error("Invalid email format.");
             return;
         }
-    
+
         if (!password.trim()) {
             toast.error("Password is required.");
             return;
@@ -75,7 +90,7 @@ function Register() {
             toast.error("Password must be at least 6 characters.");
             return;
         }
-    
+
         if (!repPassword.trim()) {
             toast.error("Repeat password is required.");
             return;
@@ -83,25 +98,41 @@ function Register() {
             toast.error("Passwords do not match.");
             return;
         }
-    
-            
-        const reqBody = { fname: fName, lname: lName, mobNo, email, password, degree, specilization: specialization };
+
+
+        const reqBody = { fname: fName, lname: lName, mobNo, email, password, degree, specilization: specialization, subjectId };
 
         const res = await onRegister(reqBody);
-        if(res.status == 1) {
+        if (res.status == 1) {
             toast.success("registerion successfull...!")
-            navigate(-1)
+            navigate("/login")
         }
-        else{
+        else {
             toast.error("registerion failed...!")
         }
 
     };
 
+    const handleCourseChange = async (e) => {
+        const selectedCourseId = e.target.value;
+        setCourseId(selectedCourseId);
+        const subjects = await getSubjects(selectedCourseId);
+        const s = subjects.filter(subject => subject.faculty === null);
+        setSub(s)
+    }
+
     return (
         <div className="register-container">
             <div className="form-box">
-                <h2 className="header">Register</h2>
+                <h2 className="header">Faculty Register</h2>
+                <div className="row">
+                    <div className="col">
+                        <Link to="/registerstudent" className="btn btn-primary ms-5">For Student Registration</Link>
+                    </div>
+                    <div className="col">
+                        <Link to="/register" className="ms-5 btn btn-primary">For Faculty Registration</Link>
+                    </div>
+                </div>
                 <div className="row mb-3">
                     <div className="col m-0">
                         <label htmlFor="fName">First Name</label>
@@ -138,7 +169,7 @@ function Register() {
                 <div className="row mb-3">
                     <label htmlFor="degree">Degree</label>
                     <select id="degree" className="form-select" value={degree}
-                    onChange={e=>setDegree(e.target.value)}>
+                        onChange={e => setDegree(e.target.value)}>
                         <option value="">Select Degree</option>
                         {deg.map((opt, index) => (
                             <option key={index} value={opt}>
@@ -150,8 +181,8 @@ function Register() {
 
                 <div className="row mb-3">
                     <label htmlFor="specs">Specialization</label>
-                    <select id="specs" className="form-select" value={specialization} 
-                        onChange={e=>setSpecialization(e.target.value)}
+                    <select id="specs" className="form-select" value={specialization}
+                        onChange={e => setSpecialization(e.target.value)}
                     >
                         <option value="">Select Specialization</option>
                         {spec.map((opt, index) => (
@@ -161,6 +192,35 @@ function Register() {
                         ))}
                     </select>
                 </div>
+
+
+                <div className="row mb-3">
+                    <label htmlFor="course">Course</label>
+                    <select id="course" className="form-select" value={courseId}
+                        onChange={handleCourseChange}>
+                        <option value="">Select Course</option>
+                        {courses.map((opt, index) => (
+                            <option key={index} value={opt.id}>
+                                {opt.courseName}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+
+                <div className="row mb-3">
+                    <label htmlFor="course">Subject</label>
+                    <select id="course" className="form-select" value={subjectId}
+                        onChange={e => setSubjectId(e.target.value)}>
+                        <option value="">Select Subject</option>
+                        {subjectsWithNullFaculty.map((opt, index) => (
+                            <option key={index} value={opt.id}>
+                                {opt.title}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
 
                 <div className="row mb-3">
                     <label htmlFor="email">Email</label>

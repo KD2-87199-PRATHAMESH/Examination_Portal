@@ -6,14 +6,12 @@ import com.exam.dto.ReqStudentSignIn;
 import com.exam.entity.Faculty;
 
 public interface FacultyService {
-	
-	Faculty addFaculty(ReqFaculty reqFaculty);
+    
+    Faculty addFaculty(ReqFaculty reqFaculty);
 
-	Faculty selectFaculty(ReqStudentSignIn entity);
+    Faculty selectFaculty(ReqStudentSignIn entity);
 
-	Faculty updateFaculty(ReqFacultyUpdate entity);
-	
-	Faculty getFaculty(Long facultyId);
-	
-	
+    Faculty updateFaculty(ReqFacultyUpdate entity);
+
+    Faculty getFaculty(Long facultyId);
 }

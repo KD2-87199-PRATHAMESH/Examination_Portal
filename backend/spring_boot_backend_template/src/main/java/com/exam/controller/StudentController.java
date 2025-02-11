@@ -22,50 +22,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/student")
 @CrossOrigin("*")
 public class StudentController {
 
-	@Autowired
-	private StudentService studentService;
-	
-	@GetMapping("/course")
-	public ResponseEntity<?> getMethodName() {
-		List<Course> courses = studentService.findAllCourses();
-		return ResponseEntity.status(HttpStatus.OK).body(courses);
-	}
-	
-	@PostMapping
-	public ResponseEntity<?> postMethodName(@RequestBody ReqStudent entity) {
-		
-		Student student = studentService.addStudent(entity);
-		if(student != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Student Inserted: "+ student.getId(), 1));
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Student not Inserted...!", 0));	
-		
-	}
-	
-	@PostMapping("/signin")
-	public ResponseEntity<?> getMethodName(@RequestBody ReqStudentSignIn entity) {
-		Student student = studentService.selectStudent(entity);
-		if(student != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(student);
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("invalid credentials", 0));
-	}
-	
-	@PutMapping
-	public ResponseEntity<?> putMethodName(@RequestBody ReqStudentUpdate entity) {
-		
-		Student student = studentService.updateStudent(entity);
-		if(student != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(student);
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("invalid credentials", 0));
-	}
-	
-	
+    @Autowired
+    private StudentService studentService;
+    
+    @GetMapping("/course")
+    public ResponseEntity<?> getMethodName() {
+        List<Course> courses = studentService.findAllCourses();
+        return ResponseEntity.status(HttpStatus.OK).body(courses);
+    }
+    
+    @PostMapping
+    public ResponseEntity<?> postMethodName(@RequestBody ReqStudent entity) {
+        Student student = studentService.addStudent(entity);
+        if (student != null) {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse("Student Inserted: " + student.getId(), 1));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Student not Inserted...!", 0));    
+    }
+    
+    @PostMapping("/signin")
+    public ResponseEntity<?> getMethodName(@RequestBody ReqStudentSignIn entity) {
+        Student student = studentService.selectStudent(entity);
+        if (student != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(student);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Invalid credentials", 0));
+    }
+    
+    @PutMapping
+    public ResponseEntity<?> putMethodName(@RequestBody ReqStudentUpdate entity) {
+        Student student = studentService.updateStudent(entity);
+        if (student != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(student);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Invalid credentials", 0));
+    }
 }
