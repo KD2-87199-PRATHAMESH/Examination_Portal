@@ -1,15 +1,5 @@
  package com.exam.dto;
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Locale.Category;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,23 +14,16 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ReqQuiz  {
 
-//	private Long id;
-
 	private String qTitle;
-//	@Column(name = "Q_description")
-//	private String qDescription;
 
 	private String marksPerQue;
 
 	private String passMarks;
 	
-
 	private String noOfQuestions;
 	
-
-	private boolean isActive=false;
+	private boolean isActive=true;
 	
 	private Long subId;
-	
 	
 }

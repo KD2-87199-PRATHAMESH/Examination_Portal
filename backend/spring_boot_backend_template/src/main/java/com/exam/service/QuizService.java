@@ -5,6 +5,7 @@ import java.util.List;
 import com.exam.dto.ApiResponse;
 import com.exam.dto.ReqQuiz;
 import com.exam.dto.ReqUpdateQuiz;
+import com.exam.dto.RespQuizDto;
 import com.exam.entity.Quiz;
 
 public interface QuizService {
@@ -14,6 +15,7 @@ public interface QuizService {
 	public List<Quiz> getAllQuiz();
 	public Quiz getQuiz(Long quizId);
 	public int deleteQuiz(Long quizId);
+	public List<RespQuizDto> getBySubjectId(Long subjectId);
 
 
 }

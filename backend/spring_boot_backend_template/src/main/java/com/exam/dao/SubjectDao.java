@@ -9,4 +9,8 @@ import java.util.List;
 public interface  SubjectDao extends JpaRepository<Subject, Long> {
 
 	public List<Subject> findByIsActiveTrue();
+	
+	List<Subject> findByCourseId_Id(Long courseId);
+	
+	Subject findByFaculty_Id(Long facultyId);
 }

@@ -1,13 +1,10 @@
  package com.exam.entity;
 
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale.Category;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -32,10 +29,10 @@ public class Quiz extends BaseEntity {
 
 	@Column(name = "Q_title")
 	private String qTitle;
-//	@Column(name = "Q_description")
-//	private String qDescription;
+	
 	@Column(name="marks_per_que")
 	private String marksPerQue;
+	
 	@Column(name="number_of_questions")
 	private String noOfQuestions;
 	
@@ -45,11 +42,11 @@ public class Quiz extends BaseEntity {
 	@Column(name="Q_Status")
 	private boolean isActive=false;
 	
-//	@JsonIgnore
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "subject_id", nullable = false)
 	private Subject subject;
+	
 	@JsonIgnore
-	@OneToMany(mappedBy = "quiz",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "quiz",fetch=FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Question> questions=new ArrayList<>();
 }

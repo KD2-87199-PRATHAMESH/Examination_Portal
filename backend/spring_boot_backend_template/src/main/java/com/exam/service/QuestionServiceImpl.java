@@ -10,6 +10,7 @@ import com.exam.dao.QuestionDao;
 import com.exam.dao.QuizDao;
 import com.exam.dto.ApiResponse;
 import com.exam.dto.ReqQuestion;
+import com.exam.dto.RespQuestion;
 import com.exam.entity.Question;
 import com.exam.entity.Quiz;
 
@@ -52,11 +53,16 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public ApiResponse updateQuestion(Question question) {
-		if(questionDao.existsById(question.getId()))
-		{
-			Question isQuestion=questionDao.save(question);
-			return new ApiResponse("Question updated", 1);
+	public ApiResponse updateQuestion(RespQuestion req) {
+		if(questionDao.existsById(req.getId())) {
+			Question que = questionDao.findById(req.getId()).get();
+			que.setAnswer(req.getAnswer());
+			que.setContent(req.getContent());
+			que.setOption1(req.getOption1());
+			que.setOption2(req.getOption2());
+			que.setOption3(req.getOption3());
+			que.setOption4(req.getOption4());
+			return new ApiResponse("Question updated", 1);			
 		}
 		return new ApiResponse("Question not updated", 0);
 	}

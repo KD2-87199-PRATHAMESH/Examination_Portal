@@ -1,7 +1,6 @@
 package com.exam.service;
 
 import java.util.List;
-import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,9 @@ import com.exam.entity.Subject;
 
 import jakarta.transaction.Transactional;
 
-
 @Service
 @Transactional
-public class SubjectServiceImpl implements SubjectService{
+public class SubjectServiceImpl implements SubjectService {
 	@Autowired
 	private SubjectDao subjectDao;
 	@Autowired
@@ -26,12 +24,12 @@ public class SubjectServiceImpl implements SubjectService{
 	@Override
 	public Subject addSubject(ReqSubject reqSubject) {
 		// TODO Auto-generated method stub
-		
-		Subject subject=modelMapper.map(reqSubject,Subject.class);
-		
-		Subject iSubject= subjectDao.save(subject);
+
+		Subject subject = modelMapper.map(reqSubject, Subject.class);
+
+		Subject iSubject = subjectDao.save(subject);
 		iSubject.setActive(true);
-		
+
 		return iSubject;
 	}
 
@@ -39,10 +37,10 @@ public class SubjectServiceImpl implements SubjectService{
 	public Subject updateSubject(ReqUpdateSubject reqUpdateSubject) {
 		// TODO Auto-generated method stub
 //		Subject subject=modelMapper.map(reqUpdateSubject,Subject.class);
-		
-		Subject updateSubject=subjectDao.findById(reqUpdateSubject.getId()).get();
+
+		Subject updateSubject = subjectDao.findById(reqUpdateSubject.getId()).get();
 		updateSubject.setTitle(reqUpdateSubject.getTitle());
-		Subject iSubject= subjectDao.save(updateSubject);
+		Subject iSubject = subjectDao.save(updateSubject);
 		return iSubject;
 	}
 
@@ -55,30 +53,41 @@ public class SubjectServiceImpl implements SubjectService{
 	@Override
 	public Subject getSubject(Long subId) {
 		// TODO Auto-generated method stub
-		Subject subject=subjectDao.findById(subId).get();
-		
-		if(subject.isActive() && subject !=null)
-		{
+		Subject subject = subjectDao.findById(subId).get();
+
+		if (subject.isActive() && subject != null) {
 			return subject;
 		}
-		
+
 		return null;
-		
+
 	}
 
 	@Override
 	public int deleteSubject(Long subId) {
 		// TODO Auto-generated method stub
-	Subject subject=subjectDao.findById(subId).get();
-	subject.setActive(false);
-	
-	if(subject.isActive())
-	{
-		return 0;
+		Subject subject = subjectDao.findById(subId).get();
+		subject.setActive(false);
+
+		if (subject.isActive()) {
+			return 0;
+		}
+
+		return 1;
+
 	}
-	
-	return 1;
-		
+
+	@Override
+	public List<Subject> findByCourseId(Long courseId) {
+		List <Subject> ll = subjectDao.findByCourseId_Id(courseId);
+		return ll;
 	}
+
+	@Override
+	public Subject findByFacultyId(Long facultyId) {
+		Subject s = subjectDao.findByFaculty_Id(facultyId);
+		return s;
+	}
+
 
 }
