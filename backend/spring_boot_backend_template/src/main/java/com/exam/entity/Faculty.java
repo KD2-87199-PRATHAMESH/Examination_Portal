@@ -1,7 +1,6 @@
 package com.exam.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,30 +14,29 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Faculty extends BaseEntity {
-	
-	@Column(name = "f_name", length = 20)
-	private String fName;
-	
-	@Column(name = "l_name", length = 20)
-	private String lName;
+    
+    @Column(name = "f_name", length = 20)
+    private String fName;
+    
+    @Column(name = "l_name", length = 20)
+    private String lName;
 
-	@Column(length = 40)
-	private String email;
+    @Column(length = 40)
+    private String email;
 
-	@Column(nullable = false)
-	@JsonIgnore
-	private String password;
-	
-	@Column(name = "mob_no", length = 10)
-	private String mobNo;
+    @Column(nullable = false)
+    @JsonIgnore
+    private String password;
+    
+    @Column(name = "mob_no", length = 10)
+    private String mobNo;
 
-	@Enumerated(EnumType.STRING)
-	private Degree degree;
-	
-	@Enumerated(EnumType.STRING)
-	private Specilization specilization;
-	
-	@Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
-	private boolean status = true;
-	
+    @Enumerated(EnumType.STRING)
+    private Degree degree;
+    
+    @Enumerated(EnumType.STRING)
+    private Specilization specilization;
+
+    @Column(name = "status", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
+    private boolean status = true;
 }

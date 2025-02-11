@@ -29,62 +29,58 @@ import com.exam.service.QuizService;
 @CrossOrigin("*")
 public class QuizController {
 
-	@Autowired
-	private QuizService quizService;
-	
-	@Autowired
-	private ModelMapper modelMapper;
+    @Autowired
+    private QuizService quizService;
+    
+    @Autowired
+    private ModelMapper modelMapper;
 
-	@PostMapping("/")
-	public ResponseEntity<?> postMethodName(@RequestBody ReqQuiz entity) {
-		Quiz quiz = quizService.addQuiz(entity);
-		if (quiz != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Quiz Inserted: " + quiz.getId(), 1));
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Quiz not Inserted...!", 0));
-	}
+    @PostMapping("/")
+    public ResponseEntity<?> postMethodName(@RequestBody ReqQuiz entity) {
+        Quiz quiz = quizService.addQuiz(entity);
+        if (quiz != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Quiz Inserted: " + quiz.getId(), 1));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Quiz not Inserted...!", 0));
+    }
 
-	@PatchMapping("/")
-	public ResponseEntity<?> UpdateQuiz(@RequestBody ReqUpdateQuiz reqUpdateQuiz) {
-		ApiResponse res = quizService.updateQuiz(reqUpdateQuiz);
-		return ResponseEntity.status(HttpStatus.OK).body(res);
-	}
+    @PatchMapping("/")
+    public ResponseEntity<?> UpdateQuiz(@RequestBody ReqUpdateQuiz reqUpdateQuiz) {
+        ApiResponse res = quizService.updateQuiz(reqUpdateQuiz);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
 
-	@GetMapping("/{quizId}")
-	public ResponseEntity<?> getQuiz(@PathVariable("quizId") Long quizId) {
-//		return this.subjectService.getSubject(subjectId);
-		Quiz quiz = quizService.getQuiz(quizId);
-		
-		RespQuizDto res = modelMapper.map(quiz, RespQuizDto.class);
-		
-		if (quiz != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(res);
-		}
+    @GetMapping("/{quizId}")
+    public ResponseEntity<?> getQuiz(@PathVariable("quizId") Long quizId) {
+        Quiz quiz = quizService.getQuiz(quizId);
+        
+        if (quiz != null) {
+            RespQuizDto res = modelMapper.map(quiz, RespQuizDto.class);
+            return ResponseEntity.status(HttpStatus.OK).body(res);
+        }
 
-		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("quiz not found", 0));
-	}
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Quiz not found", 0));
+    }
 
-	@GetMapping("/")
-	public ResponseEntity<?> getAllQuiz() {
+    @GetMapping("/")
+    public ResponseEntity<?> getAllQuiz() {
+        return ResponseEntity.ok(this.quizService.getAllQuiz());
+    }
 
-		return ResponseEntity.ok(this.quizService.getAllQuiz());
-	}
+    @DeleteMapping("/{quizId}")
+    public ResponseEntity<?> deleteQuiz(@PathVariable("quizId") Long quizId) {
+        int count = quizService.deleteQuiz(quizId);
 
-	@DeleteMapping("/{quizId}")
-	public ResponseEntity<?> deleteQuiz(@PathVariable("quizId") Long quizId) {
-		int count = quizService.deleteQuiz(quizId);
+        if (count == 1)
+            return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Quiz Deleted Successfully...!", 1));
 
-		if (count == 1)
-			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Quiz Deleted Successfully...!", 1));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Error While Deleting Quiz...!", 0));
+    }
 
-		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Error While Deleting Quiz...!", 0));
-
-	}
-
-	@GetMapping("/subject/{subjectId}")
-	public ResponseEntity<?> getMethodName1(@PathVariable Long subjectId) {
-		List<RespQuizDto> list = quizService.getBySubjectId(subjectId);
-		return ResponseEntity.status(HttpStatus.OK).body(list);
-	}
+    @GetMapping("/subject/{subjectId}")
+    public ResponseEntity<?> getMethodName1(@PathVariable Long subjectId) {
+        List<RespQuizDto> list = quizService.getBySubjectId(subjectId);
+        return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
 
 }
