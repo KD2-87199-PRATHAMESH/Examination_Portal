@@ -59,4 +59,11 @@ public class FacultyServiceImpl implements FacultyService {
         f = facultyDao.save(f);
         return f;
     }
+
+	@Override
+	public Faculty getFaculty(Long facultyId) {
+		// TODO Auto-generated method stub
+		Faculty faculty=facultyDao.findById(facultyId).get();
+		return faculty;
+	}
 }
